@@ -46,6 +46,15 @@ netsh advfirewall firewall add rule name="Allow logging Outbound" dir=out action
 netsh advfirewall firewall add rule name="Allow logging Outbound" dir=out action=allow protocol=TCP localport=9997 | Out-Null
 Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] Allowed logging traffic" -ForegroundColor white
 
+# Allow Other Windows Service Ports
+if ($env:COMPUTERNAME -eq "bidoof2") {
+  netsh advfirewall firewall add rule name="Allow VGA Inbound" dir=in action=allow protocol=TCP localport=21095 | Out-Null
+  netsh advfirewall firewall add rule name="Allow Shell Inbound" dir=in action=allow protocol=TCP localport=22589 | Out-Null
+} else {
+  netsh advfirewall firewall add rule name="Allow VGA Inbound" dir=in action=allow protocol=TCP localport=21274 | Out-Null
+  netsh advfirewall firewall add rule name="Allow Shell Inbound" dir=in action=allow protocol=TCP localport=21091 | Out-Null
+}
+
 # Other firewall blocking rules (applications)
 netsh advfirewall firewall add rule name="Block appvlp.exe netconns" program="C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" protocol=tcp dir=out enable=yes action=block profile=any | Out-Null
 netsh advfirewall firewall add rule name="Block appvlp.exe netconns" program="C:\Program Files\Microsoft Office\root\client\AppVLP.exe" protocol=tcp dir=out enable=yes action=block profile=any | Out-Null
