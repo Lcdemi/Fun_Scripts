@@ -41,10 +41,10 @@ if ((Get-CimInstance -Class Win32_OperatingSystem).Caption -match "Windows Serve
 }
 
 # Downloading scripts
-(New-Object System.Net.WebClient).DownloadFile("", (Join-Path -Path $ScriptPath -ChildPath "backup.ps1"))
-(New-Object System.Net.WebClient).DownloadFile("", (Join-Path -Path $ScriptPath -ChildPath "firewall.ps1"))
-(New-Object System.Net.WebClient).DownloadFile("", (Join-Path -Path $ScriptPath -ChildPath "usermgmt.ps1"))
-(New-Object System.Net.WebClient).DownloadFile("", (Join-Path -Path $ScriptPath -ChildPath "iis.ps1"))
+(New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Lcdemi/Fun_Scripts/refs/heads/main/backup.ps1", (Join-Path -Path $ScriptPath -ChildPath "backup.ps1"))
+(New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Lcdemi/Fun_Scripts/refs/heads/main/firewall.ps1", (Join-Path -Path $ScriptPath -ChildPath "firewall.ps1"))
+(New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Lcdemi/Fun_Scripts/refs/heads/main/usermgmt.ps1", (Join-Path -Path $ScriptPath -ChildPath "usermgmt.ps1"))
+(New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/Lcdemi/Fun_Scripts/refs/heads/main/iis.ps1", (Join-Path -Path $ScriptPath -ChildPath "iis.ps1"))
 (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1", (Join-Path -Path $ScriptPath -ChildPath "PrivescCheck.ps1"))
 
 # Downloading Firewall Control and .NET 4.8
