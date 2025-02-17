@@ -19,6 +19,17 @@ if (Get-Service -Name W3SVC 2>$null) {
     Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "ERROR" -ForegroundColor red -NoNewLine; Write-Host "] IIS is not installed" -ForegroundColor white
 }
 
+if (Get-CimInstance -Class Win32_OperatingSystem -Filter 'ProductType = "2"') {
+    New-Item -Path $backupPath -Name "sysvol" -ItemType "directory" | Out-Null
+    robocopy c:\windows\sysvol (Join-Path $backupPath "sysvol") /copyall /mir /b /r:0 /xd | Out-Null
+    Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] SYSVOL folder backed up" -ForegroundColor white
+
+    dnscmd /exportsettings | Out-Null
+    New-Item -Path $backupPath -Name "dns_backup" -ItemType "directory" | Out-Null
+    xcopy /E /I C:\Windows\System32\dns (Join-Path -Path $backupPath -childPath "dns_backup") | Out-Null
+    Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] DNS folder backed up" -ForegroundColor white
+}
+
 if (Get-Service -Name WinRM 2>$null) {
     New-Item -Path $backupPath -Name "winrm" -ItemType "directory" | Out-Null
     $winrmConfigBackupPath = Join-Path -Path $backupPath -childPath "winrm\winrm_config_backup.txt"
