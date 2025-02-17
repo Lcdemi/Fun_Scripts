@@ -39,6 +39,13 @@ netsh advfirewall firewall add rule name="Allow HTTP Outbound" dir=out action=al
 netsh advfirewall firewall add rule name="Allow HTTPS Outbound" dir=out action=allow protocol=TCP remoteport=443 | Out-Null
 Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] Allowed outbound HTTP and HTTPS traffic" -ForegroundColor white
 
+# Allow logging traffic
+netsh advfirewall firewall add rule name="Allow logging Inbound" dir=in action=allow protocol=TCP localport=8000 | Out-Null
+netsh advfirewall firewall add rule name="Allow logging Inbound" dir=in action=allow protocol=TCP localport=9997 | Out-Null
+netsh advfirewall firewall add rule name="Allow logging Outbound" dir=out action=allow protocol=TCP localport=8000 | Out-Null
+netsh advfirewall firewall add rule name="Allow logging Outbound" dir=out action=allow protocol=TCP localport=9997 | Out-Null
+Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] Allowed logging traffic" -ForegroundColor white
+
 # Other firewall blocking rules (applications)
 netsh advfirewall firewall add rule name="Block appvlp.exe netconns" program="C:\Program Files (x86)\Microsoft Office\root\client\AppVLP.exe" protocol=tcp dir=out enable=yes action=block profile=any | Out-Null
 netsh advfirewall firewall add rule name="Block appvlp.exe netconns" program="C:\Program Files\Microsoft Office\root\client\AppVLP.exe" protocol=tcp dir=out enable=yes action=block profile=any | Out-Null
