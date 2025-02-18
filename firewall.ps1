@@ -11,19 +11,6 @@ netsh advfirewall set allprofiles logging droppedconnections enable | Out-Null
 netsh advfirewall set allprofiles logging allowedconnections enable | Out-Null
 Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] Firewall logging enabled" -ForegroundColor white
 
-# Delete all rules
-netsh advfirewall set allprofiles state off | Out-Null
-netsh advfirewall set allprofiles firewallpolicy allowinbound,allowoutbound | Out-Null
-netsh advfirewall firewall delete rule name=all | Out-Null
-Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] All firewall rules deleted" -ForegroundColor white
-
-# Configure logging
-netsh advfirewall set allprofiles logging filename C:\Windows\fw.log | Out-Null
-netsh advfirewall set allprofiles logging maxfilesize 32676 | Out-Null
-netsh advfirewall set allprofiles logging droppedconnections enable | Out-Null
-netsh advfirewall set allprofiles logging allowedconnections enable | Out-Null
-Write-Host "[" -ForegroundColor white -NoNewLine; Write-Host "SUCCESS" -ForegroundColor green -NoNewLine; Write-Host "] Firewall logging enabled" -ForegroundColor white
-
 # Enable firewall and set default policy to block
 netsh advfirewall set allprofiles state on | Out-Null
 netsh advfirewall set allprofiles firewallpolicy blockinbound,blockoutbound | Out-Null
