@@ -1,0 +1,1 @@
+Get-CimInstance -ClassName Win32_UserAccount -Filter "LocalAccount='True'" | Where-Object { $_.Name -notlike $Env:UserName -and $_.Name -notlike 'ansible' -and $_.Name -notlike 'greyteam' } | Select-Object -ExpandProperty Name | Out-File -FilePath "users.txt"
