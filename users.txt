@@ -103,7 +103,3 @@ krabby
 kingler
 voltorb
 electrode
-exeggcute
-exeggutor
-cubone
-marowak
